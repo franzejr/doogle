@@ -135,6 +135,7 @@ DEPENDENCIES
   factory_girl
   foreman
   minitest
+  nokogiri
   puma
   rails (= 4.2.1)
   rails-api

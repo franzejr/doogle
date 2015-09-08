@@ -14,6 +14,8 @@ gem 'puma'
 
 gem 'foreman'
 
+gem 'nokogiri'
+
 
 group :development, :test do
   # RSpec
