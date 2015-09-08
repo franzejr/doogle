@@ -240,3 +240,41 @@ Processing by WordsController#show as HTML
   [1m[36mWord Load (0.1ms)[0m  [1mSELECT  "words".* FROM "words" WHERE "words"."name" = ? LIMIT 1[0m  [["name", "World"]]
   [1m[35mDefinition Load (0.1ms)[0m  SELECT "definitions".* FROM "definitions" WHERE "definitions"."word_id" = ?  [["word_id", 1]]
 Completed 200 OK in 2ms (Views: 1.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for ::1 at 2015-09-08 19:15:42 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/franzejr/.rvm/gems/ruby-2.1.5/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (1.8ms)
+Completed 200 OK in 10ms (Views: 9.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/words/World" for ::1 at 2015-09-08 19:15:43 -0300
+Processing by WordsController#show as HTML
+  Parameters: {"name"=>"World"}
+  [1m[35mWord Load (0.2ms)[0m  SELECT  "words".* FROM "words" WHERE "words"."name" = ? LIMIT 1  [["name", "World"]]
+  [1m[36mDefinition Load (0.1ms)[0m  [1mSELECT "definitions".* FROM "definitions" WHERE "definitions"."word_id" = ?[0m  [["word_id", 1]]
+Completed 200 OK in 46ms (Views: 22.0ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/words" for ::1 at 2015-09-08 19:15:53 -0300
+Processing by WordsController#index as HTML
+  [1m[35mWord Load (0.2ms)[0m  SELECT "words".* FROM "words"
+  [1m[36mDefinition Load (0.1ms)[0m  [1mSELECT "definitions".* FROM "definitions" WHERE "definitions"."word_id" = ?[0m  [["word_id", 1]]
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/words" for ::1 at 2015-09-08 19:16:06 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WordsController#index as HTML
+  [1m[35mWord Load (0.1ms)[0m  SELECT "words".* FROM "words"
+  [1m[36mDefinition Load (0.2ms)[0m  [1mSELECT "definitions".* FROM "definitions" WHERE "definitions"."word_id" = ?[0m  [["word_id", 1]]
+Completed 200 OK in 24ms (Views: 20.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/words" for ::1 at 2015-09-08 19:16:48 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WordsController#index as HTML
+  [1m[35mWord Load (0.1ms)[0m  SELECT "words".* FROM "words"
+  [1m[36mDefinition Load (0.2ms)[0m  [1mSELECT "definitions".* FROM "definitions" WHERE "definitions"."word_id" = ?[0m  [["word_id", 1]]
+Completed 200 OK in 23ms (Views: 18.8ms | ActiveRecord: 0.7ms)
