@@ -12,6 +12,8 @@ gem 'sqlite3'
 
 gem 'puma'
 
+gem 'foreman'
+
 
 group :development, :test do
   # RSpec
