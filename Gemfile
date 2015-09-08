@@ -16,6 +16,8 @@ gem 'foreman'
 
 gem 'nokogiri'
 
+gem 'dotenv'
+
 
 group :development, :test do
   # RSpec
