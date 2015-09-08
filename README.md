@@ -7,3 +7,4 @@ Doogle dictionary API.
 - rails-api
 - active-model serializer
 - rspec
+- foreman
