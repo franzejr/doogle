@@ -20,7 +20,6 @@ This application basically is divided in two parts:
 ```
 $ bundle install
 $ rake db:create && rake db:migrate && rake db:seeds
-
 ```
 
 ## How to run the app
@@ -28,7 +27,7 @@ $ rake db:create && rake db:migrate && rake db:seeds
 ```
 $ foreman start
 ```
-
+* Visit your app at [http://localhost:3000](http://localhost:3000).
 
 ## Using 
 
@@ -38,3 +37,5 @@ $ foreman start
 - foreman
 - simplecov
 - puma
+- vcr
+- spring
