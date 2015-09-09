@@ -19,6 +19,13 @@ This application basically is divided in two parts:
 
 ## How to setup
 
+1. Setup the API KEY from DictionaryAPI
+
+	- You should create an API_KEY in the following website: http://www.dictionaryapi.com/
+	- Once you have created, you might use dotenv and create ENV['API_KEY'] in your environment.
+
+2. Running the application
+
 ```
 $ bundle install
 $ rake db:create && rake db:migrate && rake db:seeds
