@@ -3,6 +3,16 @@
 
 /* jshint ignore:end */
 
+define('doogle/adapters/application', ['exports', 'ember-data'], function (exports, DS) {
+
+  'use strict';
+
+  exports['default'] = DS['default'].RESTAdapter.extend({
+    namespace: 'words',
+    host: 'http://localhost:3000'
+  });
+
+});
 define('doogle/app', ['exports', 'ember', 'ember/resolver', 'ember/load-initializers', 'doogle/config/environment'], function (exports, Ember, Resolver, loadInitializers, config) {
 
   'use strict';
@@ -153,6 +163,24 @@ define('doogle/routes/words', ['exports', 'ember'], function (exports, Ember) {
 	exports['default'] = Ember['default'].Route.extend({});
 
 });
+define('doogle/routes/words/show', ['exports', 'ember'], function (exports, Ember) {
+
+  'use strict';
+
+  exports['default'] = Ember['default'].Route.extend({
+
+    controllerName: 'word',
+
+    model: function model(params) {
+      return this.store.find('word', "computer");
+    },
+
+    setupController: function setupController(controller, model) {
+      controller.set('model', model);
+    }
+  });
+
+});
 define('doogle/templates/application', ['exports'], function (exports) {
 
   'use strict';
@@ -295,6 +323,70 @@ define('doogle/templates/words', ['exports'], function (exports) {
   }()));
 
 });
+define('doogle/templates/words/show', ['exports'], function (exports) {
+
+  'use strict';
+
+  exports['default'] = Ember.HTMLBars.template((function() {
+    return {
+      meta: {
+        "revision": "Ember@1.13.7",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 0
+          }
+        },
+        "moduleName": "doogle/templates/words/show.hbs"
+      },
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createTextNode("teste: ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(2);
+        morphs[0] = dom.createMorphAt(fragment,1,1,contextualElement);
+        morphs[1] = dom.createMorphAt(fragment,3,3,contextualElement);
+        return morphs;
+      },
+      statements: [
+        ["content","controller.model",["loc",[null,[1,7],[1,27]]]],
+        ["content","outlet",["loc",[null,[3,0],[3,10]]]]
+      ],
+      locals: [],
+      templates: []
+    };
+  }()));
+
+});
+define('doogle/tests/adapters/application.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - adapters');
+  QUnit.test('adapters/application.js should pass jshint', function(assert) { 
+    assert.ok(false, 'adapters/application.js should pass jshint.\nadapters/application.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nadapters/application.js: line 3, col 1, \'export\' is only available in ES6 (use esnext option).\n\n2 errors'); 
+  });
+
+});
 define('doogle/tests/app.jshint', function () {
 
   'use strict';
@@ -402,6 +494,16 @@ define('doogle/tests/routes/words.jshint', function () {
   });
 
 });
+define('doogle/tests/routes/words/show.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - routes/words');
+  QUnit.test('routes/words/show.js should pass jshint', function(assert) { 
+    assert.ok(false, 'routes/words/show.js should pass jshint.\nroutes/words/show.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nroutes/words/show.js: line 3, col 1, \'export\' is only available in ES6 (use esnext option).\n\n2 errors'); 
+  });
+
+});
 define('doogle/tests/test-helper', ['doogle/tests/helpers/resolver', 'ember-qunit'], function (resolver, ember_qunit) {
 
 	'use strict';
@@ -416,6 +518,32 @@ define('doogle/tests/test-helper.jshint', function () {
   QUnit.module('JSHint - .');
   QUnit.test('test-helper.js should pass jshint', function(assert) { 
     assert.ok(true, 'test-helper.js should pass jshint.'); 
+  });
+
+});
+define('doogle/tests/unit/adapters/application-test', ['ember-qunit'], function (ember_qunit) {
+
+  'use strict';
+
+  ember_qunit.moduleFor('adapter:application', 'Unit | Adapter | application', {
+    // Specify the other units that are required for this test.
+    // needs: ['serializer:foo']
+  });
+
+  // Replace this with your real tests.
+  ember_qunit.test('it exists', function (assert) {
+    var adapter = this.subject();
+    assert.ok(adapter);
+  });
+
+});
+define('doogle/tests/unit/adapters/application-test.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - unit/adapters');
+  QUnit.test('unit/adapters/application-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'unit/adapters/application-test.js should pass jshint.'); 
   });
 
 });
@@ -470,6 +598,31 @@ define('doogle/tests/unit/routes/words-test.jshint', function () {
   });
 
 });
+define('doogle/tests/unit/routes/words/show-test', ['ember-qunit'], function (ember_qunit) {
+
+  'use strict';
+
+  ember_qunit.moduleFor('route:words/show', 'Unit | Route | words/show', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  ember_qunit.test('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+
+});
+define('doogle/tests/unit/routes/words/show-test.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - unit/routes/words');
+  QUnit.test('unit/routes/words/show-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'unit/routes/words/show-test.js should pass jshint.'); 
+  });
+
+});
 /* jshint ignore:start */
 
 /* jshint ignore:end */
@@ -498,7 +651,7 @@ catch(err) {
 if (runningTests) {
   require("doogle/tests/test-helper");
 } else {
-  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+"});
+  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+d9b03119"});
 }
 
 /* jshint ignore:end */
