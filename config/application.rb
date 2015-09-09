@@ -3,8 +3,6 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 require 'dotenv' ; Dotenv.load ".env.local", ".env.#{Rails.env}"
 
-load 'lib/dictionary_api/client.rb'
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -16,7 +14,6 @@ module DoogleApi
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths += %W(#{config.root}/lib)
-    config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

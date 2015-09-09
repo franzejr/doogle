@@ -7,17 +7,46 @@ RSpec.describe WordsController, type: :controller do
     expect(response).to be_success
   end
 
-  it "#show" do
-    get(:show, {name: "World"})
-    expect(response).to be_success
+  describe "GET show" do
+    context "word exists in local database" do
+      before do
+        Word.create(name: "Home", definitions: [Definition.create(name: ":house")])
+      end
+
+      it "renders JSON with word definitions" do
+        get :show, name: "Home"
+
+        expect(JSON.parse(response.body)).to eq({
+          "name" => "Home",
+          "definitions" => [{ "name" => ":house" }]
+        })
+      end
+
+      it "does not import from API" do
+        expect(DictionaryApi::Word).to_not receive(:new)
+        get :show, name: "Home"
+      end
+    end
+
+    context "word does not exist in local database" do
+      before do
+        allow_any_instance_of(DictionaryApi::Word).to receive(:definitions)
+          .and_return([":house", ":one's place of residence :domicile"])
+      end
+
+      it "imports word from Dictionary API and renders JSON response" do
+        expect do
+          get :show, name: "Home"
+        end.to change { Word.count }.from(0).to(1)
+        
+        expect(JSON.parse(response.body)).to eq({
+          "name" => "Home",
+          "definitions" => [
+            { "name" => ":house" },
+            { "name" => ":one's place of residence :domicile"}
+          ]
+        })
+      end
+    end
   end
-
-  xit "If the word is not in the database, it should persist" do
-
-  end
-
-  xit "If the word not in the database, it should not persist" do
-
-  end
-
 end

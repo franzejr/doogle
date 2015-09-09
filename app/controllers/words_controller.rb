@@ -5,18 +5,20 @@ class WordsController < ApplicationController
 	end
 
 	def show
-		find_or_create_word
+		find_or_import_word
 		render json: @word
 	end
 
 	private
 
-	def find_or_create_word
+	def find_or_import_word
 		@word = Word.find_or_initialize_by(name: params[:name])
-		@word.update(definitions: definitions_from_dic_api(params[:name])) if @word.new_record?
+		@word.update(definitions: import_definitions(params[:name])) if @word.new_record?
 	end
 
-	def definitions_from_dic_api(name)
-		Dictionary::Word.new(name).definitions
+	def import_definitions(name)
+		DictionaryApi::Word.new(name).definitions.map do |definition|
+			Definition.new(name: definition)
+		end
 	end
 end
