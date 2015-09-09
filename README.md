@@ -1,5 +1,7 @@
 # Doogle
 
+[![Code Climate](https://codeclimate.com/github/franzejr/doogle/badges/gpa.svg)](https://codeclimate.com/github/franzejr/doogle)
+
 Doogle dictionary API.
 
 
