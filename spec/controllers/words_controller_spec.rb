@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe WordsController, type: :controller do
+RSpec.describe WordsController do
 
 	it "#index" do
     get :index
@@ -30,8 +30,8 @@ RSpec.describe WordsController, type: :controller do
 
     context "word does not exist in local database" do
       before do
-        allow_any_instance_of(DictionaryApi::Word).to receive(:definitions)
-          .and_return([":house", ":one's place of residence :domicile"])
+        allow(DictionaryApi::Word).to receive(:new)
+          .and_return(double(definitions: [":house", ":one's place of residence :domicile"]))
       end
 
       it "imports word from Dictionary API and renders JSON response" do
