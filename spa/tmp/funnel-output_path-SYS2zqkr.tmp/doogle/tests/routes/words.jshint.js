@@ -1,0 +1,1 @@
+/Users/franzejr/programming/git/doogle/spa/tmp/funnel-input_base_path-3Y8HRHIM.tmp/0/doogle/tests/routes/words.jshint.js

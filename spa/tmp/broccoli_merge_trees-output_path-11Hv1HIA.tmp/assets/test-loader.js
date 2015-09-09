@@ -1,0 +1,1 @@
+/Users/franzejr/programming/git/doogle/spa/bower_components/ember-cli-test-loader/test-loader.js

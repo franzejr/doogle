@@ -1,0 +1,1 @@
+/Users/franzejr/programming/git/doogle/spa/tmp/funnel-input_base_path-x9d2ZRc7.tmp/0/initializer-factory.js

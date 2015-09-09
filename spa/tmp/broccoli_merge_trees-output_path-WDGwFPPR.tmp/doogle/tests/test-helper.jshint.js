@@ -1,0 +1,1 @@
+/Users/franzejr/programming/git/doogle/spa/tmp/jshinter-cache_path-Et3SeWCe.tmp/test-helper.jshint.js

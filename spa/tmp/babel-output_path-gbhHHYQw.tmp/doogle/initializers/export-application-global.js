@@ -1,0 +1,1 @@
+/Users/franzejr/programming/git/doogle/spa/tmp/babel-cache_path-3yfokbkQ.tmp/doogle/initializers/export-application-global.js

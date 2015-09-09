@@ -1,0 +1,1 @@
+/Users/franzejr/programming/git/doogle/spa/tmp/core_object-cache_path-sUhBoae9.tmp/addons.js
