@@ -8,7 +8,7 @@ Doogle dictionary API.
 This application basically is divided in two parts:
 
 1. Rails Dictionary API - using http://www.dictionaryapi.com/
-2. [SPA](/spa)(Single Page Application) using emberJS
+2. [SPA](/spa) (Single Page Application) using emberJS
 
 ## Features
 
