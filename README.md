@@ -9,7 +9,7 @@ This application basically is divided in two parts:
 
 1. Rails Dictionary API - using http://www.dictionaryapi.com/
 2. [SPA-ember](/spa) (Single Page Application) using emberJS
-2. [SPA](/spa_angular) (Single Page Application) using angularJS
+2. [SPA-angular](/spa_angular) (Single Page Application) using angularJS
 
 ## Features
 
