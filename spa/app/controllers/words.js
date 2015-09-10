@@ -3,12 +3,23 @@ import Ember from 'ember';
  var w = Ember.Word
 
 export default Ember.ObjectController.extend({
-  anyVariable: 1,
+  // the initial value of the `search` property
+  search: '',
+  results: '',
 
   actions: {
-    teste: function(){
-    	 var todo = this.get('model');
-    	 console.log(todo)
-    },
+    query: function() {
+      var controller = this;
+      controller.set('results', '');
+      var query = this.get('search');
+
+      if(query != ""){
+      	$.getJSON('http://localhost:3000/words/'+ query, function(response){
+      		controller.set('results', response);
+      	});
+      }
+      
+    }
   }
+
 });

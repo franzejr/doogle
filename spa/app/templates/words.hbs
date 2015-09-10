@@ -1,4 +1,17 @@
-
-{{anyVariable}}
+<div class="row">
+	<div class="col-md-6 center-block">
+		<h2 id="title">Welcome to Ember</h2>
+		<div class="input-group input-group-lg">
+		  <span class="input-group-addon" id="sizing-addon1">Word: </span>
+		  {{input class="form-control" placeholder="search" type="search" value=search aria-describedby="sizing-addon1" action="query"}}
+		</div>
+	</div>
+</div>
+ 
+<ul>
+	{{#each definition in results.definitions}}
+	    <li>{{definition.name}}!</li>
+	{{/each}}
+</ul>
 
 {{outlet}}

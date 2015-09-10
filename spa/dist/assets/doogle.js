@@ -67,14 +67,24 @@ define('doogle/controllers/words', ['exports', 'ember'], function (exports, Embe
   var w = Ember['default'].Word;
 
   exports['default'] = Ember['default'].ObjectController.extend({
-    anyVariable: 1,
+    // the initial value of the `search` property
+    search: '',
+    results: '',
 
     actions: {
-      teste: function teste() {
-        var todo = this.get('model');
-        console.log(todo);
+      query: function query() {
+        var controller = this;
+        controller.set('results', '');
+        var query = this.get('search');
+
+        if (query != "") {
+          $.getJSON('http://localhost:3000/words/' + query, function (response) {
+            controller.set('results', response);
+          });
+        }
       }
     }
+
   });
 
 });
@@ -150,7 +160,8 @@ define('doogle/router', ['exports', 'ember', 'doogle/config/environment'], funct
   });
 
   Router.map(function () {
-    this.route('words');
+    this.route('words', { path: '/' });
+    this.route('about', { path: '/about' });
   });
 
   exports['default'] = Router;
@@ -158,26 +169,20 @@ define('doogle/router', ['exports', 'ember', 'doogle/config/environment'], funct
 });
 define('doogle/routes/words', ['exports', 'ember'], function (exports, Ember) {
 
-	'use strict';
-
-	exports['default'] = Ember['default'].Route.extend({});
-
-});
-define('doogle/routes/words/show', ['exports', 'ember'], function (exports, Ember) {
-
   'use strict';
 
   exports['default'] = Ember['default'].Route.extend({
 
-    controllerName: 'word',
+    controllerName: 'words',
 
-    model: function model(params) {
-      return this.store.find('word', "computer");
+    model: function model() {
+      return $.getJSON('http://localhost:3000/words/computer');
     },
 
     setupController: function setupController(controller, model) {
       controller.set('model', model);
     }
+
   });
 
 });
@@ -196,11 +201,104 @@ define('doogle/templates/application', ['exports'], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 11,
-            "column": 6
+            "line": 2,
+            "column": 1
           }
         },
         "moduleName": "doogle/templates/application.hbs"
+      },
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n	");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(fragment,0,0,contextualElement);
+        dom.insertBoundary(fragment, 0);
+        return morphs;
+      },
+      statements: [
+        ["content","outlet",["loc",[null,[1,0],[1,10]]]]
+      ],
+      locals: [],
+      templates: []
+    };
+  }()));
+
+});
+define('doogle/templates/words', ['exports'], function (exports) {
+
+  'use strict';
+
+  exports['default'] = Ember.HTMLBars.template((function() {
+    var child0 = (function() {
+      return {
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 12,
+              "column": 1
+            },
+            "end": {
+              "line": 14,
+              "column": 1
+            }
+          },
+          "moduleName": "doogle/templates/words.hbs"
+        },
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("	    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("li");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("!");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
+          return morphs;
+        },
+        statements: [
+          ["content","definition.name",["loc",[null,[13,9],[13,28]]]]
+        ],
+        locals: ["definition"],
+        templates: []
+      };
+    }());
+    return {
+      meta: {
+        "revision": "Ember@1.13.7",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 17,
+            "column": 10
+          }
+        },
+        "moduleName": "doogle/templates/words.hbs"
       },
       arity: 0,
       cachedFragment: null,
@@ -234,18 +332,10 @@ define('doogle/templates/application', ['exports'], function (exports) {
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n		  ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createElement("input");
-        dom.setAttribute(el4,"type","text");
-        dom.setAttribute(el4,"class","form-control");
-        dom.setAttribute(el4,"placeholder","Search for a Word");
-        dom.setAttribute(el4,"aria-describedby","sizing-addon1");
+        var el4 = dom.createComment("");
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n		");
         dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n		\n		");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n	");
         dom.appendChild(el2, el3);
@@ -253,126 +343,35 @@ define('doogle/templates/application', ['exports'], function (exports) {
         var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
-        return el0;
-      },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(1);
-        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1]),5,5);
-        return morphs;
-      },
-      statements: [
-        ["content","outlet",["loc",[null,[9,2],[9,12]]]]
-      ],
-      locals: [],
-      templates: []
-    };
-  }()));
-
-});
-define('doogle/templates/words', ['exports'], function (exports) {
-
-  'use strict';
-
-  exports['default'] = Ember.HTMLBars.template((function() {
-    return {
-      meta: {
-        "revision": "Ember@1.13.7",
-        "loc": {
-          "source": null,
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 5,
-            "column": 0
-          }
-        },
-        "moduleName": "doogle/templates/words.hbs"
-      },
-      arity: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      buildFragment: function buildFragment(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("\n");
+        var el1 = dom.createTextNode("\n \n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("ul");
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n	\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(2);
-        morphs[0] = dom.createMorphAt(fragment,1,1,contextualElement);
-        morphs[1] = dom.createMorphAt(fragment,3,3,contextualElement);
+        var morphs = new Array(3);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]),3,3);
+        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2]),1,1);
+        morphs[2] = dom.createMorphAt(fragment,4,4,contextualElement);
+        dom.insertBoundary(fragment, null);
         return morphs;
       },
       statements: [
-        ["content","anyVariable",["loc",[null,[2,0],[2,15]]]],
-        ["content","outlet",["loc",[null,[4,0],[4,10]]]]
+        ["inline","input",[],["class","form-control","placeholder","search","type","search","value",["subexpr","@mut",[["get","search",["loc",[null,[6,74],[6,80]]]]],[],[]],"aria-describedby","sizing-addon1","enter","query"],["loc",[null,[6,4],[6,130]]]],
+        ["block","each",[["get","results.definitions",["loc",[null,[12,23],[12,42]]]]],[],0,null,["loc",[null,[12,1],[14,10]]]],
+        ["content","outlet",["loc",[null,[17,0],[17,10]]]]
       ],
       locals: [],
-      templates: []
-    };
-  }()));
-
-});
-define('doogle/templates/words/show', ['exports'], function (exports) {
-
-  'use strict';
-
-  exports['default'] = Ember.HTMLBars.template((function() {
-    return {
-      meta: {
-        "revision": "Ember@1.13.7",
-        "loc": {
-          "source": null,
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 4,
-            "column": 0
-          }
-        },
-        "moduleName": "doogle/templates/words/show.hbs"
-      },
-      arity: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      buildFragment: function buildFragment(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("teste: ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(2);
-        morphs[0] = dom.createMorphAt(fragment,1,1,contextualElement);
-        morphs[1] = dom.createMorphAt(fragment,3,3,contextualElement);
-        return morphs;
-      },
-      statements: [
-        ["content","controller.model",["loc",[null,[1,7],[1,27]]]],
-        ["content","outlet",["loc",[null,[3,0],[3,10]]]]
-      ],
-      locals: [],
-      templates: []
+      templates: [child0]
     };
   }()));
 
@@ -403,7 +402,7 @@ define('doogle/tests/controllers/words.jshint', function () {
 
   QUnit.module('JSHint - controllers');
   QUnit.test('controllers/words.js should pass jshint', function(assert) { 
-    assert.ok(false, 'controllers/words.js should pass jshint.\ncontrollers/words.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\ncontrollers/words.js: line 3, col 20, Missing semicolon.\ncontrollers/words.js: line 5, col 1, \'export\' is only available in ES6 (use esnext option).\ncontrollers/words.js: line 11, col 27, Missing semicolon.\n\n4 errors'); 
+    assert.ok(false, 'controllers/words.js should pass jshint.\ncontrollers/words.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\ncontrollers/words.js: line 3, col 20, Missing semicolon.\ncontrollers/words.js: line 5, col 1, \'export\' is only available in ES6 (use esnext option).\ncontrollers/words.js: line 16, col 16, Use \'!==\' to compare with \'\'.\n\n4 errors'); 
   });
 
 });
@@ -480,7 +479,7 @@ define('doogle/tests/router.jshint', function () {
 
   QUnit.module('JSHint - .');
   QUnit.test('router.js should pass jshint', function(assert) { 
-    assert.ok(false, 'router.js should pass jshint.\nrouter.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 12, col 1, \'export\' is only available in ES6 (use esnext option).\n\n3 errors'); 
+    assert.ok(false, 'router.js should pass jshint.\nrouter.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 9, col 37, Missing semicolon.\nrouter.js: line 10, col 42, Missing semicolon.\nrouter.js: line 13, col 1, \'export\' is only available in ES6 (use esnext option).\n\n5 errors'); 
   });
 
 });
@@ -491,16 +490,6 @@ define('doogle/tests/routes/words.jshint', function () {
   QUnit.module('JSHint - routes');
   QUnit.test('routes/words.js should pass jshint', function(assert) { 
     assert.ok(false, 'routes/words.js should pass jshint.\nroutes/words.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nroutes/words.js: line 3, col 1, \'export\' is only available in ES6 (use esnext option).\n\n2 errors'); 
-  });
-
-});
-define('doogle/tests/routes/words/show.jshint', function () {
-
-  'use strict';
-
-  QUnit.module('JSHint - routes/words');
-  QUnit.test('routes/words/show.js should pass jshint', function(assert) { 
-    assert.ok(false, 'routes/words/show.js should pass jshint.\nroutes/words/show.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nroutes/words/show.js: line 3, col 1, \'export\' is only available in ES6 (use esnext option).\n\n2 errors'); 
   });
 
 });
@@ -651,7 +640,7 @@ catch(err) {
 if (runningTests) {
   require("doogle/tests/test-helper");
 } else {
-  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+d9b03119"});
+  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+bfbdb236"});
 }
 
 /* jshint ignore:end */
