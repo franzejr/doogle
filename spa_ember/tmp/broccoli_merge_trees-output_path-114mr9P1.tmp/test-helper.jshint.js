@@ -1,0 +1,1 @@
+/Users/franzejr/programming/git/doogle/spa/tmp/broccoli_merge_trees-input_base_path-lNiVmm5f.tmp/0/test-helper.jshint.js

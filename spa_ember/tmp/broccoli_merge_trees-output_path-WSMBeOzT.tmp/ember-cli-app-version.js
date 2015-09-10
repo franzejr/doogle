@@ -1,0 +1,1 @@
+/Users/franzejr/programming/git/doogle/spa/tmp/reexporter-tmp_cache_dir-Y3XrZGR9.tmp/reexports/ember-cli-app-version.js
