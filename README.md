@@ -1,6 +1,7 @@
 # Doogle
 
 [![Code Climate](https://codeclimate.com/github/franzejr/doogle/badges/gpa.svg)](https://codeclimate.com/github/franzejr/doogle)
+[![Build Status](https://travis-ci.org/franzejr/doogle.svg)](https://travis-ci.org/franzejr/doogle)
 
 Doogle dictionary API.
 

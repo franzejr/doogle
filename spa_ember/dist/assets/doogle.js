@@ -639,7 +639,7 @@ catch(err) {
 if (runningTests) {
   require("doogle/tests/test-helper");
 } else {
-  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+f8524e5d"});
+  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+7287be8f"});
 }
 
 /* jshint ignore:end */
