@@ -3,6 +3,16 @@
 
 /* jshint ignore:end */
 
+define('doogle/adapters/application', ['exports', 'ember-data'], function (exports, DS) {
+
+  'use strict';
+
+  exports['default'] = DS['default'].RESTAdapter.extend({
+    namespace: 'words',
+    host: 'http://localhost:3000'
+  });
+
+});
 define('doogle/app', ['exports', 'ember', 'ember/resolver', 'ember/load-initializers', 'doogle/config/environment'], function (exports, Ember, Resolver, loadInitializers, config) {
 
   'use strict';
@@ -57,14 +67,24 @@ define('doogle/controllers/words', ['exports', 'ember'], function (exports, Embe
   var w = Ember['default'].Word;
 
   exports['default'] = Ember['default'].ObjectController.extend({
-    anyVariable: 1,
+    // the initial value of the `search` property
+    search: '',
+    results: '',
 
     actions: {
-      teste: function teste() {
-        var todo = this.get('model');
-        console.log(todo);
+      query: function query() {
+        var controller = this;
+        controller.set('results', '');
+        var query = this.get('search');
+
+        if (query != "") {
+          $.getJSON('http://localhost:3000/words/' + query, function (response) {
+            controller.set('results', response);
+          });
+        }
       }
     }
+
   });
 
 });
@@ -140,7 +160,7 @@ define('doogle/router', ['exports', 'ember', 'doogle/config/environment'], funct
   });
 
   Router.map(function () {
-    this.route('words');
+    this.route('words', { path: '/' });
   });
 
   exports['default'] = Router;
@@ -148,9 +168,21 @@ define('doogle/router', ['exports', 'ember', 'doogle/config/environment'], funct
 });
 define('doogle/routes/words', ['exports', 'ember'], function (exports, Ember) {
 
-	'use strict';
+  'use strict';
 
-	exports['default'] = Ember['default'].Route.extend({});
+  exports['default'] = Ember['default'].Route.extend({
+
+    controllerName: 'words',
+
+    model: function model() {
+      return $.getJSON('http://localhost:3000/words/computer');
+    },
+
+    setupController: function setupController(controller, model) {
+      controller.set('model', model);
+    }
+
+  });
 
 });
 define('doogle/templates/application', ['exports'], function (exports) {
@@ -168,8 +200,8 @@ define('doogle/templates/application', ['exports'], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 4,
-            "column": 0
+            "line": 2,
+            "column": 1
           }
         },
         "moduleName": "doogle/templates/application.hbs"
@@ -179,26 +211,20 @@ define('doogle/templates/application', ['exports'], function (exports) {
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("h2");
-        dom.setAttribute(el1,"id","title");
-        var el2 = dom.createTextNode("Welcome to Ember");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n");
-        dom.appendChild(el0, el1);
         var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
+        var el1 = dom.createTextNode("\n	");
         dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var morphs = new Array(1);
-        morphs[0] = dom.createMorphAt(fragment,2,2,contextualElement);
+        morphs[0] = dom.createMorphAt(fragment,0,0,contextualElement);
+        dom.insertBoundary(fragment, 0);
         return morphs;
       },
       statements: [
-        ["content","outlet",["loc",[null,[3,0],[3,10]]]]
+        ["content","outlet",["loc",[null,[1,0],[1,10]]]]
       ],
       locals: [],
       templates: []
@@ -211,6 +237,52 @@ define('doogle/templates/words', ['exports'], function (exports) {
   'use strict';
 
   exports['default'] = Ember.HTMLBars.template((function() {
+    var child0 = (function() {
+      return {
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 12,
+              "column": 1
+            },
+            "end": {
+              "line": 14,
+              "column": 1
+            }
+          },
+          "moduleName": "doogle/templates/words.hbs"
+        },
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("	    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("li");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("!");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
+          return morphs;
+        },
+        statements: [
+          ["content","definition.name",["loc",[null,[13,9],[13,28]]]]
+        ],
+        locals: ["definition"],
+        templates: []
+      };
+    }());
     return {
       meta: {
         "revision": "Ember@1.13.7",
@@ -221,8 +293,8 @@ define('doogle/templates/words', ['exports'], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 5,
-            "column": 0
+            "line": 17,
+            "column": 10
           }
         },
         "moduleName": "doogle/templates/words.hbs"
@@ -232,32 +304,85 @@ define('doogle/templates/words', ['exports'], function (exports) {
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("\n");
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1,"class","row");
+        var el2 = dom.createTextNode("\n	");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2,"class","col-md-6 center-block");
+        var el3 = dom.createTextNode("\n		");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("h2");
+        dom.setAttribute(el3,"id","title");
+        var el4 = dom.createTextNode("Welcome to Ember");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n		");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3,"class","input-group input-group-lg");
+        var el4 = dom.createTextNode("\n		  ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("span");
+        dom.setAttribute(el4,"class","input-group-addon");
+        dom.setAttribute(el4,"id","sizing-addon1");
+        var el5 = dom.createTextNode("Word: ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n		  ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n		");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n	");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
-        var el1 = dom.createComment("");
+        var el1 = dom.createTextNode("\n \n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("ul");
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(2);
-        morphs[0] = dom.createMorphAt(fragment,1,1,contextualElement);
-        morphs[1] = dom.createMorphAt(fragment,3,3,contextualElement);
+        var morphs = new Array(3);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]),3,3);
+        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2]),1,1);
+        morphs[2] = dom.createMorphAt(fragment,4,4,contextualElement);
+        dom.insertBoundary(fragment, null);
         return morphs;
       },
       statements: [
-        ["content","anyVariable",["loc",[null,[2,0],[2,15]]]],
-        ["content","outlet",["loc",[null,[4,0],[4,10]]]]
+        ["inline","input",[],["class","form-control","placeholder","search","type","search","value",["subexpr","@mut",[["get","search",["loc",[null,[6,74],[6,80]]]]],[],[]],"aria-describedby","sizing-addon1","enter","query"],["loc",[null,[6,4],[6,130]]]],
+        ["block","each",[["get","results.definitions",["loc",[null,[12,23],[12,42]]]]],[],0,null,["loc",[null,[12,1],[14,10]]]],
+        ["content","outlet",["loc",[null,[17,0],[17,10]]]]
       ],
       locals: [],
-      templates: []
+      templates: [child0]
     };
   }()));
+
+});
+define('doogle/tests/adapters/application.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - adapters');
+  QUnit.test('adapters/application.js should pass jshint', function(assert) { 
+    assert.ok(false, 'adapters/application.js should pass jshint.\nadapters/application.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nadapters/application.js: line 3, col 1, \'export\' is only available in ES6 (use esnext option).\n\n2 errors'); 
+  });
 
 });
 define('doogle/tests/app.jshint', function () {
@@ -276,7 +401,7 @@ define('doogle/tests/controllers/words.jshint', function () {
 
   QUnit.module('JSHint - controllers');
   QUnit.test('controllers/words.js should pass jshint', function(assert) { 
-    assert.ok(false, 'controllers/words.js should pass jshint.\ncontrollers/words.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\ncontrollers/words.js: line 3, col 20, Missing semicolon.\ncontrollers/words.js: line 5, col 1, \'export\' is only available in ES6 (use esnext option).\ncontrollers/words.js: line 11, col 27, Missing semicolon.\n\n4 errors'); 
+    assert.ok(false, 'controllers/words.js should pass jshint.\ncontrollers/words.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\ncontrollers/words.js: line 3, col 20, Missing semicolon.\ncontrollers/words.js: line 5, col 1, \'export\' is only available in ES6 (use esnext option).\ncontrollers/words.js: line 16, col 16, Use \'!==\' to compare with \'\'.\n\n4 errors'); 
   });
 
 });
@@ -353,7 +478,7 @@ define('doogle/tests/router.jshint', function () {
 
   QUnit.module('JSHint - .');
   QUnit.test('router.js should pass jshint', function(assert) { 
-    assert.ok(false, 'router.js should pass jshint.\nrouter.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 12, col 1, \'export\' is only available in ES6 (use esnext option).\n\n3 errors'); 
+    assert.ok(false, 'router.js should pass jshint.\nrouter.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 9, col 37, Missing semicolon.\nrouter.js: line 12, col 1, \'export\' is only available in ES6 (use esnext option).\n\n4 errors'); 
   });
 
 });
@@ -381,6 +506,32 @@ define('doogle/tests/test-helper.jshint', function () {
   QUnit.module('JSHint - .');
   QUnit.test('test-helper.js should pass jshint', function(assert) { 
     assert.ok(true, 'test-helper.js should pass jshint.'); 
+  });
+
+});
+define('doogle/tests/unit/adapters/application-test', ['ember-qunit'], function (ember_qunit) {
+
+  'use strict';
+
+  ember_qunit.moduleFor('adapter:application', 'Unit | Adapter | application', {
+    // Specify the other units that are required for this test.
+    // needs: ['serializer:foo']
+  });
+
+  // Replace this with your real tests.
+  ember_qunit.test('it exists', function (assert) {
+    var adapter = this.subject();
+    assert.ok(adapter);
+  });
+
+});
+define('doogle/tests/unit/adapters/application-test.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - unit/adapters');
+  QUnit.test('unit/adapters/application-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'unit/adapters/application-test.js should pass jshint.'); 
   });
 
 });
@@ -435,6 +586,31 @@ define('doogle/tests/unit/routes/words-test.jshint', function () {
   });
 
 });
+define('doogle/tests/unit/routes/words/show-test', ['ember-qunit'], function (ember_qunit) {
+
+  'use strict';
+
+  ember_qunit.moduleFor('route:words/show', 'Unit | Route | words/show', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  ember_qunit.test('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+
+});
+define('doogle/tests/unit/routes/words/show-test.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - unit/routes/words');
+  QUnit.test('unit/routes/words/show-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'unit/routes/words/show-test.js should pass jshint.'); 
+  });
+
+});
 /* jshint ignore:start */
 
 /* jshint ignore:end */
@@ -463,7 +639,7 @@ catch(err) {
 if (runningTests) {
   require("doogle/tests/test-helper");
 } else {
-  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+"});
+  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+f8524e5d"});
 }
 
 /* jshint ignore:end */

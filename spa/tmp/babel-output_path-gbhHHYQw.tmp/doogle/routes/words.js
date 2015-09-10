@@ -1,3 +1,1 @@
-import Ember from 'ember';
-
-export default Ember.Route.extend({});
+/Users/franzejr/programming/git/doogle/spa/tmp/babel-cache_path-3yfokbkQ.tmp/doogle/routes/words.js

@@ -16,6 +16,8 @@ gem 'nokogiri'
 
 gem 'dotenv'
 
+gem 'rack-cors', require: 'rack/cors'
+
 
 group :development, :test do
 	gem 'spring'
