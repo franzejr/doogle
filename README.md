@@ -8,7 +8,8 @@ Doogle dictionary API.
 This application basically is divided in two parts:
 
 1. Rails Dictionary API - using http://www.dictionaryapi.com/
-2. [SPA](/spa) (Single Page Application) using emberJS
+2. [SPA-ember](/spa) (Single Page Application) using emberJS
+2. [SPA](/spa_angular) (Single Page Application) using angularJS
 
 ## Features
 
@@ -28,7 +29,7 @@ This application basically is divided in two parts:
 
 ```
 $ bundle install
-$ rake db:create && rake db:migrate && rake db:seeds
+$ rake db:create && rake db:migrate
 ```
 
 ## How to run the app
@@ -36,9 +37,14 @@ $ rake db:create && rake db:migrate && rake db:seeds
 ```
 $ foreman start
 ```
-* Visit your app at [http://localhost:3000](http://localhost:3000).
 
-## Using 
+Foreman will start:
+
+- Rails API - [http://localhost:3000](http://localhost:3000)
+- Ember application - [http://localhost:8080](http://localhost:8080)
+- Angular application - [http://localhost:8000](http://localhost:8000)
+
+## Using
 
 - rails-api
 - active-model serializers
