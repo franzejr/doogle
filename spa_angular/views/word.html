@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-md-12 center-block">
+		<h2 id="title">Welcome to Ember</h2>
+			<form class="form-inline" ng-submit="doSearch()">
+			  <div class="form-group col-md-12">
+			    <div class="input-group input-group-lg col-md-12">
+			      <div class="input-group-addon">word</div>
+						<input class="form-control" placeholder="search" type="text" ng-model="search" aria-describedby="sizing-addon1" />
+			    </div>
+			  </div>
+			</form>
+	</div>
+
+	<div class="col-md-12">
+			<img ng-show="inprogress" src="http://www.ajaxload.info/images/exemples/20.gif">
+			<ul>
+				<li ng-repeat="definition in definitions">{{definition.name}}!</li>
+			</ul>
+			<span ng-if="state" ng-hide="definitions.length">No results found</span>
+	</div>
+</div>
+

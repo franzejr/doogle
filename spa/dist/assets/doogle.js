@@ -161,7 +161,6 @@ define('doogle/router', ['exports', 'ember', 'doogle/config/environment'], funct
 
   Router.map(function () {
     this.route('words', { path: '/' });
-    this.route('about', { path: '/about' });
   });
 
   exports['default'] = Router;
@@ -351,7 +350,7 @@ define('doogle/templates/words', ['exports'], function (exports) {
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n	\n");
+        var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
@@ -479,7 +478,7 @@ define('doogle/tests/router.jshint', function () {
 
   QUnit.module('JSHint - .');
   QUnit.test('router.js should pass jshint', function(assert) { 
-    assert.ok(false, 'router.js should pass jshint.\nrouter.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 9, col 37, Missing semicolon.\nrouter.js: line 10, col 42, Missing semicolon.\nrouter.js: line 13, col 1, \'export\' is only available in ES6 (use esnext option).\n\n5 errors'); 
+    assert.ok(false, 'router.js should pass jshint.\nrouter.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nrouter.js: line 9, col 37, Missing semicolon.\nrouter.js: line 12, col 1, \'export\' is only available in ES6 (use esnext option).\n\n4 errors'); 
   });
 
 });
@@ -640,7 +639,7 @@ catch(err) {
 if (runningTests) {
   require("doogle/tests/test-helper");
 } else {
-  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+bfbdb236"});
+  require("doogle/app")["default"].create({"name":"doogle","version":"0.0.0+f8524e5d"});
 }
 
 /* jshint ignore:end */
