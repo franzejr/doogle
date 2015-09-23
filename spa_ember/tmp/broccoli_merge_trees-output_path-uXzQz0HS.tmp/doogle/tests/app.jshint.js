@@ -1,1 +1,0 @@
-/Users/franzejr/programming/git/doogle/spa/tmp/jshinter-output_path-uVlB0fiD.tmp/app.jshint.js

@@ -1,1 +1,0 @@
-/Users/franzejr/programming/git/doogle/spa/tmp/jshinter-cache_path-UBKSfqZO.tmp/controllers/words.jshint.js

@@ -1,1 +1,0 @@
-/Users/franzejr/programming/git/doogle/spa/tmp/broccoli_merge_trees-input_base_path-Ar25dqlS.tmp/0/modules/ember-cli-app-version/initializer-factory.js

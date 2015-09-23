@@ -1,1 +1,0 @@
-/Users/franzejr/programming/git/doogle/spa/tmp/broccoli_merge_trees-input_base_path-x0sjdDQI.tmp/14/test-helper.js
