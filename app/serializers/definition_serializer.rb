@@ -1,3 +1,3 @@
 class DefinitionSerializer < ActiveModel::Serializer
-	attributes :name
+  attributes :name
 end

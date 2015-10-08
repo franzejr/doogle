@@ -11,21 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908211026) do
-
-  create_table "definitions", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "word_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+ActiveRecord::Schema.define(version: 20_150_908_211_026) do
+  create_table 'definitions', force: :cascade do |t|
+    t.string 'name'
+    t.integer 'word_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_index "definitions", ["word_id"], name: "index_definitions_on_word_id"
+  add_index 'definitions', ['word_id'], name: 'index_definitions_on_word_id'
 
-  create_table "words", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'words', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
-
 end

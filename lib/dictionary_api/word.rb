@@ -2,7 +2,7 @@ module DictionaryApi
   class Word
     attr_reader :xml
 
-    API_DICTIONARY_URL = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml"
+    API_DICTIONARY_URL = 'http://www.dictionaryapi.com/api/v1/references/collegiate/xml'
 
     def initialize(word)
       word_url = generate_url_for(word)
@@ -10,7 +10,7 @@ module DictionaryApi
     end
 
     def definitions
-  		@xml.xpath("//entry_list/entry/def/dt").map(&:content)
+      @xml.xpath('//entry_list/entry/def/dt').map(&:content)
     end
 
     private
